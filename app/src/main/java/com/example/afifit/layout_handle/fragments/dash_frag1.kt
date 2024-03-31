@@ -11,7 +11,6 @@ import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.health.connect.datatypes.units.BloodGlucose
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -28,12 +27,12 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.afifit.Messaging
 import com.example.afifit.R
 import com.example.afifit.data.ComputerVision
 import com.example.afifit.data.UserProfile
 import com.example.afifit.databinding.FragmentDashFrag1Binding
 import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -92,15 +91,15 @@ class dash_frag1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDashFrag1Binding.bind(view)
-
+        FirebaseApp.initializeApp(requireContext())
         sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
 
         bpmTextView = binding?.bpm
         avgBpmTextView = binding?.brr
         bloodOxygenTextView = binding?.OxyValue
         glucose = binding?.bpm
-
         userId = "yourUserId"
+
 
         displayGreeting()
         databaseReferenceUser = FirebaseDatabase.getInstance().reference.child("userProfiles")
@@ -178,8 +177,9 @@ class dash_frag1 : Fragment() {
 
     private fun displayGreeting() {
         val currentTime = Calendar.getInstance().time
+        val formattedTime = SimpleDateFormat("HH", Locale.getDefault()).format(currentTime).toInt()
 
-        val greeting = when (SimpleDateFormat("HH", Locale.getDefault()).format(currentTime).toInt()) {
+        val greeting = when (formattedTime) {
             in 6..11 -> "Good Morning"
             in 12..17 -> "Good Afternoon"
             in 18..23, in 0..5 -> "Good Evening"

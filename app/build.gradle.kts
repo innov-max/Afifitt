@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
- 
+    id("com.google.gms.google-services")
+
 
 }
 
@@ -41,6 +42,7 @@ android {
         viewBinding = true
         aidl= true
         buildConfig = true
+        mlModelBinding = true
     }
 
 
@@ -55,6 +57,8 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("org.tensorflow:tensorflow-lite-support:0.1.0")
+    implementation("org.tensorflow:tensorflow-lite-metadata:0.1.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -76,8 +80,12 @@ dependencies {
     implementation("com.github.ZEGOCLOUD:zego_uikit_prebuilt_call_android:+")
     //firebase
     implementation("com.google.firebase:firebase-messaging:23.4.1")
-    implementation("com.google.firebase:firebase-firestore:24.10.2")
-    implementation("com.google.firebase:firebase-database:20.3.0")
+    implementation("com.google.firebase:firebase-firestore:24.11.0")
+    implementation("com.google.firebase:firebase-database:20.3.1")
+    implementation ("com.google.firebase:firebase-analytics:21.6.1")
+    implementation ("com.google.firebase:firebase-storage:20.3.0")
+
+
     //graph
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     //chat
@@ -88,7 +96,19 @@ dependencies {
     implementation ("com.sendbird.sdk:sendbird-android-sdk:3.0.141")
     //implementation ("com.sendbird.sdk:sendbird-chat-ktx:4.15.2")
 
+    //computervision
+    implementation ("org.tensorflow:tensorflow-lite-support:0.1.0")
+    implementation ("org.tensorflow:tensorflow-lite-metadata:0.1.0")
     implementation ("com.quickbirdstudios:opencv-contrib:3.4.15")
+    // Barcode model
+    implementation ("com.google.mlkit:barcode-scanning:17.2.0")
+    implementation ("com.google.mlkit:object-detection:17.0.1")
+    implementation ("com.google.mlkit:object-detection-custom:17.0.1")
+    implementation ("com.google.mlkit:face-detection:16.1.6")
+    implementation ("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
+    implementation ("com.google.mlkit:image-labeling-automl:16.2.1")
+    implementation ("com.google.mlkit:image-labeling:17.0.8")
+    implementation ("com.google.mlkit:image-labeling-custom:17.0.2")
 
 
 
