@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Outer shape with rounded corners -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="#03A9F4" /> <!-- Background color -->
+        </shape>
+    </item>
+
+    <!-- Inner shape for elevation (shadow) -->
+    <item android:top="0dp" android:left="0dp" android:right="0dp" android:bottom="40dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <solid android:color="#03A9F4" /> <!-- Elevation color -->
+        </shape>
+    </item>
+
+</layer-list>

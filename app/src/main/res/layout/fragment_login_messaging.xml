@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".layout_handle.fragments.login_messaging"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_margin="10dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:lottie_rawRes="@raw/doc_anim"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:textColorHint="@color/black"
+        app:endIconMode="clear_text"
+        android:id="@+id/nameTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:boxCornerRadiusBottomEnd="40dp"
+        app:boxCornerRadiusBottomStart="40dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        android:layout_margin="20dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:hint="UserId"
+            android:textSize="18sp"
+            android:textColorHint="@color/black"
+            android:backgroundTint="#F0F5F6"
+            android:id="@+id/UserId"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:textColorHint="@color/black"
+        app:endIconMode="clear_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:boxCornerRadiusBottomEnd="40dp"
+        app:boxCornerRadiusBottomStart="40dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        android:layout_margin="20dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+
+            android:hint="NickName"
+            android:textSize="18sp"
+            android:textColorHint="@color/black"
+            android:backgroundTint="#F0F5F6"
+            android:id="@+id/NickName"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_login"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:text="Update Login"
+        app:backgroundTint="#03A9F4"
+        android:layout_marginBottom="10dp"/>
+
+</LinearLayout>

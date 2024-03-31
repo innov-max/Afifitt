@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hi_user_id">hi user id</string>
+    <string name="let_s_start_a_video_naudio_call">lets start a video or voice call</string>
+    <string name="to_start_a_video_audio_call_please_enter_the_user_id_of_whom_you_want_to_call_and_select_the_option_of_video_audio_call">to start a call enter user id</string>
+    <string name="user_id">user id</string>
+    <string name="app_name">Afifit</string>
+    <string name="username">Username</string>
+    <string name="join_chat">Join Chat</string>
+    <string name="send">Send</string>
+    <string name="enter_message">Enter message…</string>
+    <string name="appID">YOUR_APP_ID_HERE</string>
+    <string name="apiKey">YOUR_API_KEY_HERE</string>
+</resources>

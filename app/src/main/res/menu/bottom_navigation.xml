@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp">
+    <item
+        android:id="@+id/navigation_home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/navigation_nutrition"
+        android:title="Nutrition"
+        android:icon="@drawable/apple"
+        android:iconTint="@color/black"/>
+
+    <item
+        android:id="@+id/navigation_prescription"
+        android:title="Prescription"
+        android:icon="@drawable/medicine"
+        android:iconTint="@color/black"/>
+    <item
+        android:id="@+id/navigation_exercise"
+        android:title="Excersise"
+        android:icon="@drawable/fitness"
+        android:iconTint="@color/black"/>
+
+</menu>

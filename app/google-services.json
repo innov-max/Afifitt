@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "282152798398",
+    "firebase_url": "https://rfid-attendance-4a479-default-rtdb.firebaseio.com",
+    "project_id": "rfid-attendance-4a479",
+    "storage_bucket": "rfid-attendance-4a479.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282152798398:android:b25230d8ef355d88ca36ef",
+        "android_client_info": {
+          "package_name": "com.DevKB.myzuri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqRvVX-ecIuoacM8FXWdSMIIRPP34x_0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282152798398:android:fbfbd7d1067bfd65ca36ef",
+        "android_client_info": {
+          "package_name": "com.example.afifit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqRvVX-ecIuoacM8FXWdSMIIRPP34x_0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282152798398:android:3849ca8d787d370fca36ef",
+        "android_client_info": {
+          "package_name": "com.innov.afifit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqRvVX-ecIuoacM8FXWdSMIIRPP34x_0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
