@@ -9,4 +9,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="your_checked_color">#03A9F4</color>
     <color name="your_stroke_color">#000000</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="darkgrey">#A9A9A9</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="textColor">#000000</color>
+
 </resources>

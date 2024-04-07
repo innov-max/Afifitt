@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 
 import com.example.afifit.databinding.ActivityDashBinding
+import com.example.afifit.layout_handle.fragments.ComputerVision
 import com.example.afifit.layout_handle.fragments.drugs
 import com.example.afifit.layout_handle.fragments.exercise
 import com.example.afifit.layout_handle.fragments.nutrition
@@ -16,7 +17,7 @@ class dash : AppCompatActivity() {
     private lateinit var binding: ActivityDashBinding
     val drugs = drugs()
     val nutrition = nutrition()
-    val exercise = exercise()
+    val computervision = ComputerVision()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +47,7 @@ class dash : AppCompatActivity() {
                 }
                 R.id.navigation_exercise -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.mainfragContaier, exercise)
+                        .replace(R.id.mainfragContaier, computervision)
                         .addToBackStack("mainfragContaier")
                         .commit()
                     true

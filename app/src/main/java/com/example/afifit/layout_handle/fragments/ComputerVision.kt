@@ -1,4 +1,4 @@
-package com.example.afifit.data
+package com.example.afifit.layout_handle.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,6 +14,7 @@ import android.view.*
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.afifit.databinding.FragmentComputerVisionBinding
 import com.example.afifit.ml.SsdMobilenetV11Metadata1
 import org.tensorflow.lite.support.common.FileUtil
@@ -109,6 +110,11 @@ textureView = binding?.textureView!!
         }
 
         cameraManager = requireContext().getSystemService(Context.CAMERA_SERVICE) as CameraManager
+
+        binding!!.btnBack.setOnClickListener {
+            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+        }
     }
 
     override fun onDestroy() {

@@ -59,6 +59,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("org.tensorflow:tensorflow-lite-support:0.1.0")
     implementation("org.tensorflow:tensorflow-lite-metadata:0.1.0")
+    implementation("com.google.firebase:firebase-auth:22.3.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -109,6 +110,10 @@ dependencies {
     implementation ("com.google.mlkit:image-labeling-automl:16.2.1")
     implementation ("com.google.mlkit:image-labeling:17.0.8")
     implementation ("com.google.mlkit:image-labeling-custom:17.0.2")
+    //camera
+    implementation ("androidx.camera:camera-camera2:1.0.0-beta04")
+    implementation ("androidx.camera:camera-lifecycle:1.0.0-beta04")
+    implementation ("androidx.camera:camera-view:1.0.0-alpha11")
 
 
 

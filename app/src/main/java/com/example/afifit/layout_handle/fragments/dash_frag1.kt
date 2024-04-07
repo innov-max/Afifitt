@@ -1,5 +1,6 @@
 package com.example.afifit.layout_handle.fragments
 
+
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -28,7 +29,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.afifit.R
-import com.example.afifit.data.ComputerVision
 import com.example.afifit.data.UserProfile
 import com.example.afifit.databinding.FragmentDashFrag1Binding
 import com.google.firebase.Firebase
