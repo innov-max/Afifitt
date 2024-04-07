@@ -1,9 +1,11 @@
 package com.example.afifit.layout_handle.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.afifit.R
 import com.example.afifit.authentication.SignUp_Login
+import com.example.afifit.calls
+import com.example.afifit.dash
 import com.example.afifit.databinding.FragmentSplash1Binding
 import com.example.afifit.splash2
+import com.google.firebase.auth.FirebaseAuth
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
@@ -47,6 +52,8 @@ class splash1 : Fragment() {
     }
     private var visible: Boolean = false
     private val hideRunnable = Runnable { hide() }
+    lateinit var auth: FirebaseAuth
+
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -76,6 +83,8 @@ class splash1 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
         _binding = FragmentSplash1Binding.inflate(inflater, container, false)
         return binding.root
 
@@ -84,7 +93,7 @@ class splash1 : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        auth = FirebaseAuth.getInstance()
         visible = true
 
         // Set up the user interaction to manually show or hide the system UI.
@@ -96,13 +105,26 @@ class splash1 : Fragment() {
         dummyButton?.setOnTouchListener(delayHideTouchListener)
 
 
+
         binding.btnsplash.setOnClickListener {
-            navigateToFragment2()
+
+            val user = auth.currentUser
+            if (user != null) {
+
+
+                val intent = Intent(requireContext(), dash::class.java)
+                startActivity(intent)
+            } else{
+                Log.e("Task Message", "Please Sign Up to continue")
+                navigateToFragment2()
+            }
+
         }
     }
 
 
     private fun navigateToFragment2() {
+
         val fragment2 = SignUp_Login()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
 

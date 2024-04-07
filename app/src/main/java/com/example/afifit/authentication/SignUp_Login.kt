@@ -27,8 +27,8 @@ class SignUp_Login : Fragment() {
     private var binding: FragmentSignUpLoginBinding? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
-    lateinit var gso: GoogleSignInOptions
-    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var gso: GoogleSignInOptions
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
     val RC_SIGN_IN: Int = 1
 
 
@@ -153,8 +153,9 @@ class SignUp_Login : Fragment() {
                 Toast.makeText(requireContext(),"Fill all the fields",Toast.LENGTH_SHORT).show()
             }
         }
-
+        createRequest()
         binding?.btnGoogle?.setOnClickListener {
+
             signIn();
         }
     }
