@@ -12,6 +12,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.afifit.R
+import com.example.afifit.authentication.SignUp_Login
 import com.example.afifit.databinding.FragmentSplash1Binding
 import com.example.afifit.splash2
 
@@ -102,7 +103,7 @@ class splash1 : Fragment() {
 
 
     private fun navigateToFragment2() {
-        val fragment2 = splash2()
+        val fragment2 = SignUp_Login()
         val transaction = requireActivity().supportFragmentManager.beginTransaction()
 
         // You can add the transaction to the back stack if you want to allow users to navigate back

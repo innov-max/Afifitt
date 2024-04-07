@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+          "client_id": "282152798398-pbo0524khl8da8epgphio5rngqttbq20.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -44,7 +44,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+          "client_id": "282152798398-jivfok75gco775t9ghi706jgm9sth9gp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.afifit",
+            "certificate_hash": "d7cf11dafc49ad356a6114fb62f40030f94b8923"
+          }
+        },
+        {
+          "client_id": "282152798398-pbo0524khl8da8epgphio5rngqttbq20.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -73,7 +81,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "282152798398-gtphojjk1onfmksdo166m25d5tps7osj.apps.googleusercontent.com",
+          "client_id": "282152798398-pbo0524khl8da8epgphio5rngqttbq20.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
