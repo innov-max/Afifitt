@@ -175,14 +175,32 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center">
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_marginStart="20dp"
-                android:paddingTop="5dp"
-                android:layout_width="100dp"
-                android:layout_height="70dp"
-                app:lottie_rawRes="@raw/heartb"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="left">
+           <com.mikhaellopez.circularprogressbar.CircularProgressBar
+               android:layout_width="100dp"
+               android:layout_height="50dp"
+               android:id="@+id/progress_circular"
+               android:layout_gravity="center"
+               app:cpb_background_progressbar_color="#2196F3"
+               app:cpb_background_progressbar_width="9dp"
+               app:cpb_progress_max="2500"
+               app:cpb_progressbar_color="@color/teal"
+               app:cpb_progressbar_width="15dp"
+               app:cpb_round_border="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stepsTaken"
+                android:layout_gravity="center"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

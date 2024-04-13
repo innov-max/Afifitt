@@ -12,6 +12,10 @@ import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -23,9 +27,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.afifit.R
@@ -54,6 +60,10 @@ class dash_frag1 : Fragment() {
     private var bloodOxygenTextView: TextView? = null
     private var glucose: TextView? = null
     private var isWifiConnected: Boolean = false
+    private var sensorManager: SensorManager? = null
+    private var running = false
+    private var totalSteps = 0f
+    private var previousTotalSteps = 0f
 
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -84,6 +94,7 @@ class dash_frag1 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding = FragmentDashFrag1Binding.inflate(inflater, container, false)
         return binding?.root
     }
@@ -167,6 +178,11 @@ class dash_frag1 : Fragment() {
             transaction.replace(R.id.mainfragContaier, ComputerVision())
             transaction.commit()
         }
+        loadData()
+        resetSteps()
+
+        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
     }
 
     override fun onDestroyView() {
@@ -174,6 +190,52 @@ class dash_frag1 : Fragment() {
         requireContext().unregisterReceiver(connectivityReceiver)
         binding = null
     }
+
+    override fun onResume() {
+        super.onResume()
+        running = true
+        sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+        if (stepSensor == null) {
+            Toast.makeText(
+                requireContext(),
+                "No sensor detected on this device",
+                Toast.LENGTH_SHORT
+            )
+        } else {
+            sensorManager?.registerListener(
+                sensorEventListener,
+                stepSensor,
+                SensorManager.SENSOR_DELAY_UI
+            )
+        }
+    }
+
+
+    private val sensorEventListener = object : SensorEventListener {
+        override fun onSensorChanged(event: SensorEvent?) {
+            if (running) {
+                totalSteps = event!!.values[0]
+                val currentSteps: Int = totalSteps.toInt() - previousTotalSteps.toInt()
+                binding!!.stepsTaken.text =("$currentSteps")
+                binding!!.progressCircular.apply {
+                    setProgressWithAnimation(currentSteps.toFloat())
+
+                }
+            }
+
+        }
+
+
+
+        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+            TODO("Not yet implemented")
+        }
+
+
+    }
+
 
     private fun displayGreeting() {
         val currentTime = Calendar.getInstance().time
@@ -187,6 +249,37 @@ class dash_frag1 : Fragment() {
         }
 
         binding?.greeting?.text = greeting
+    }
+    private fun resetSteps(){
+
+        binding!!.stepsTaken.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                "Long tap to reset steps",
+                Toast.LENGTH_SHORT).show()
+        }
+        binding!!.stepsTaken.setOnLongClickListener {
+            previousTotalSteps = totalSteps
+            binding!!.stepsTaken.text = 0.toString()
+            saveData()
+            true
+        }
+    }
+    private fun saveData(){
+
+        val sharedPreferences = requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor? =sharedPreferences.edit()
+        editor!!.putFloat("key1",previousTotalSteps)
+        editor.apply()
+
+    }
+    private fun loadData(){
+
+        val sharedPreferences = requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val savedNumber:Float = sharedPreferences.getFloat("key1",0f)
+        Log.d("dash","$savedNumber")
+        previousTotalSteps = savedNumber
+
     }
 
     private fun checkWifiStatus(): Boolean {
