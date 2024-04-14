@@ -2,6 +2,7 @@ package com.example.afifit.layout_handle.fragments
 
 
 import android.Manifest
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -67,7 +68,6 @@ class dash_frag1 : Fragment(),SensorEventListener {
     private var previousTotalSteps = 0f
 
     private lateinit var sharedPreferences: SharedPreferences
-    private val ACTIVITY_RECOGNITION_REQUEST_CODE: Int = 100
 
     private val connectivityReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -101,6 +101,7 @@ class dash_frag1 : Fragment(),SensorEventListener {
         return binding?.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDashFrag1Binding.bind(view)
@@ -182,7 +183,7 @@ class dash_frag1 : Fragment(),SensorEventListener {
         }
 
 
-        if (isPermissionGranted){
+        if (isPermissionGranted()){
 
             requestPermission()
         }
@@ -218,8 +219,9 @@ class dash_frag1 : Fragment(),SensorEventListener {
     }
     private fun requestPermission(){
 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-    val ACTIVITY_RECOGNITION_REQUEST_CODE: Int
-    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),ACTIVITY_RECOGNITION_REQUEST_CODE)
+
+    val ACTIVITY_RECOGNITION_REQUEST_CODE = 0
+    ActivityCompat.requestPermissions(requireContext() as Activity, arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),ACTIVITY_RECOGNITION_REQUEST_CODE)
 }
 
     }
