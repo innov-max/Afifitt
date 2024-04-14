@@ -28,6 +28,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -50,7 +51,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class dash_frag1 : Fragment() {
+class dash_frag1 : Fragment(),SensorEventListener {
 
     private var binding: FragmentDashFrag1Binding? = null
     private lateinit var databaseReferenceUser: DatabaseReference
@@ -66,6 +67,7 @@ class dash_frag1 : Fragment() {
     private var previousTotalSteps = 0f
 
     private lateinit var sharedPreferences: SharedPreferences
+    private val ACTIVITY_RECOGNITION_REQUEST_CODE: Int = 100
 
     private val connectivityReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -178,6 +180,12 @@ class dash_frag1 : Fragment() {
             transaction.replace(R.id.mainfragContaier, ComputerVision())
             transaction.commit()
         }
+
+
+        if (isPermissionGranted){
+
+            requestPermission()
+        }
         loadData()
         resetSteps()
 
@@ -204,37 +212,23 @@ class dash_frag1 : Fragment() {
                 Toast.LENGTH_SHORT
             )
         } else {
-            sensorManager?.registerListener(
-                sensorEventListener,
-                stepSensor,
-                SensorManager.SENSOR_DELAY_UI
-            )
+
+            sensorManager?.registerListener(this,stepSensor,SensorManager.SENSOR_DELAY_UI)
         }
     }
-
-
-    private val sensorEventListener = object : SensorEventListener {
-        override fun onSensorChanged(event: SensorEvent?) {
-            if (running) {
-                totalSteps = event!!.values[0]
-                val currentSteps: Int = totalSteps.toInt() - previousTotalSteps.toInt()
-                binding!!.stepsTaken.text =("$currentSteps")
-                binding!!.progressCircular.apply {
-                    setProgressWithAnimation(currentSteps.toFloat())
-
-                }
-            }
-
-        }
-
-
-
-        override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-            TODO("Not yet implemented")
-        }
-
+    private fun requestPermission(){
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+    val ACTIVITY_RECOGNITION_REQUEST_CODE: Int
+    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),ACTIVITY_RECOGNITION_REQUEST_CODE)
+}
 
     }
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun isPermissionGranted():Boolean{
+
+        return ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.ACTIVITY_RECOGNITION) !=PackageManager.PERMISSION_GRANTED
+    }
+
 
 
     private fun displayGreeting() {
@@ -268,8 +262,8 @@ class dash_frag1 : Fragment() {
     private fun saveData(){
 
         val sharedPreferences = requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor? =sharedPreferences.edit()
-        editor!!.putFloat("key1",previousTotalSteps)
+        val editor =sharedPreferences.edit()
+        editor.putFloat("key1",previousTotalSteps)
         editor.apply()
 
     }
@@ -459,5 +453,21 @@ class dash_frag1 : Fragment() {
                     }
                 }
             })
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (running) {
+            totalSteps = event!!.values[0]
+            val currentSteps: Int = totalSteps.toInt() - previousTotalSteps.toInt()
+            binding!!.stepsTaken.text =("$currentSteps")
+            binding!!.progressCircular.apply {
+                setProgressWithAnimation(currentSteps.toFloat())
+
+            }
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
     }
 }
