@@ -106,20 +106,25 @@ class splash1 : Fragment() {
 
 
 
-        binding.btnsplash.setOnClickListener {
 
+
+        val handler = Handler()
+
+
+        val runnable = Runnable {
             val user = auth.currentUser
             if (user != null) {
-
-
                 val intent = Intent(requireContext(), dash::class.java)
                 startActivity(intent)
-            } else{
+            } else {
                 Log.e("Task Message", "Please Sign Up to continue")
                 navigateToFragment2()
             }
-
         }
+
+        binding.lottieload.playAnimation()
+
+        handler.postDelayed(runnable, 5000) // 5000 milliseconds = 5 seconds
     }
 
 

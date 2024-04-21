@@ -9,37 +9,49 @@
     android:orientation="vertical"
     android:background="#03A9F4">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <com.airbnb.lottie.LottieAnimationView
         android:layout_marginTop="100dp"
         android:id="@+id/animation_view"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:lottie_rawRes="@raw/splash_anim"
+        app:lottie_rawRes="@raw/doc"
         android:layout_gravity="center"
         app:lottie_autoPlay="true"
         app:lottie_loop="true" />
 
 
     <TextView
+        android:id="@+id/appName"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Afifit"
-        android:layout_marginTop="70dp"
         android:textSize="30sp"
+        android:layout_below="@+id/animation_view"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
         />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnsplash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="continue"
-        android:textColor="#FFFFFF"
-        android:elevation="20dp"
-        android:layout_marginStart="130dp"
-        app:backgroundTint="#03A9F4"
-        app:cornerRadius="15dp"
-        android:layout_marginTop="120dp"/>
+
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieload"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:lottie_rawRes="@raw/lod"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_below="@id/appName"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
 
 </LinearLayout>
