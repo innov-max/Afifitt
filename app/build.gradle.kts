@@ -117,7 +117,7 @@ dependencies {
     implementation ("androidx.camera:camera-view:1.0.0-alpha11")
     //progress bar
     implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
-
+    implementation ("com.github.hadibtf:SemiCircleArcProgressBar:1.1.1")
 
 
 
