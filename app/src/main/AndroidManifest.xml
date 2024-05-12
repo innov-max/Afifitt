@@ -45,6 +45,9 @@
         android:theme="@style/Theme.Afifit"
         tools:targetApi="31">
         <activity
+            android:name=".Settings.Settings"
+            android:exported="false" />
+        <activity
             android:name=".Messaging"
             android:exported="false" />
         <activity

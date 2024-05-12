@@ -99,9 +99,7 @@ class splash1 : Fragment() {
         // Set up the user interaction to manually show or hide the system UI.
         fullscreenContent?.setOnClickListener { toggle() }
 
-        // Upon interacting with UI controls, delay any scheduled hide()
-        // operations to prevent the jarring behavior of controls going away
-        // while interacting with the UI.
+
         dummyButton?.setOnTouchListener(delayHideTouchListener)
 
 
@@ -116,8 +114,10 @@ class splash1 : Fragment() {
             if (user != null) {
                 val intent = Intent(requireContext(), dash::class.java)
                 startActivity(intent)
+               
             } else {
                 Log.e("Task Message", "Please Sign Up to continue")
+
                 navigateToFragment2()
             }
         }
@@ -139,6 +139,7 @@ class splash1 : Fragment() {
         transaction.commit()
     }
 
+
     override fun onResume() {
         super.onResume()
         activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
@@ -148,6 +149,7 @@ class splash1 : Fragment() {
         // are available.
         delayedHide(100)
     }
+
 
     override fun onPause() {
         super.onPause()
