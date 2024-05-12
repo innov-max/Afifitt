@@ -12,6 +12,7 @@
     <string name="enter_message">Enter message…</string>
     <string name="appID">253853044dafc1c7</string>
     <string name="apiKey">ecaa618d98d026599804ff2da115bdf7db7e4270</string>
+    <string name="settings">Settings</string>
 
 
 </resources>
