@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.afifit" />
-                  <option name="mobileSdkAppId" value="1:282152798398:android:fbfbd7d1067bfd65ca36ef" />
-                  <option name="projectId" value="rfid-attendance-4a479" />
-                  <option name="projectNumber" value="282152798398" />
+                  <option name="mobileSdkAppId" value="1:971961395930:android:0e3b7ecb6a686d3e5b53e3" />
+                  <option name="projectId" value="afifit-4328c" />
+                  <option name="projectNumber" value="971961395930" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

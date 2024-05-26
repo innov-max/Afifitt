@@ -13,5 +13,6 @@
     <color name="darkgrey">#A9A9A9</color>
     <color name="cyan">#00FFFF</color>
     <color name="textColor">#000000</color>
+    <color name="teal">#03A9F4</color>
 
 </resources>

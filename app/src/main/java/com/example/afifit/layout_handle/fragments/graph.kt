@@ -10,9 +10,10 @@ import androidx.fragment.app.Fragment
 import com.example.afifit.data.BpmData
 import com.example.afifit.databinding.FragmentGraphBinding
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -85,22 +86,48 @@ class graph : Fragment() {
             entriesBloodOxygen.add(Entry(data.timestamp.toFloat(), data.bloodOxygen))
         }
 
+        // Sort entries by timestamp to show change over time
         entriesBpm.sortBy { it.x }
         entriesBloodOxygen.sortBy { it.x }
 
-        val dataSetBpm = LineDataSet(entriesBpm, "BPM")
-        dataSetBpm.color = Color.BLUE
-        dataSetBpm.valueTextColor = Color.BLACK
+        val dataSetBpm = LineDataSet(entriesBpm, "BPM").apply {
+            color = Color.BLUE
+            valueTextColor = Color.BLACK
+            setCircleColor(Color.BLUE) // Set circle color
+            circleRadius = 5f // Set circle radius
+            setDrawCircles(true) // Enable circles
+            setDrawValues(false) // Disable value labels on nodes
+            lineWidth = 2f // Set line width
+            setDrawFilled(true) // Enable filled line
+            fillColor = Color.parseColor("#B2DFDB") // Light teal color
+            fillAlpha = 100 // Adjust alpha for the fill color
+        }
 
-        val dataSetBloodOxygen = LineDataSet(entriesBloodOxygen, "Blood Oxygen")
-        dataSetBloodOxygen.color = Color.RED
-        dataSetBloodOxygen.valueTextColor = Color.BLACK
+        val dataSetBloodOxygen = LineDataSet(entriesBloodOxygen, "Blood Oxygen").apply {
+            color = Color.RED
+            valueTextColor = Color.BLACK
+            setCircleColor(Color.RED) // Set circle color
+            circleRadius = 5f // Set circle radius
+            setDrawCircles(true) // Enable circles
+            setDrawValues(false) // Disable value labels on nodes
+            lineWidth = 2f // Set line width
+            setDrawFilled(true) // Enable filled line
+            fillColor = Color.parseColor("#B2DFDB") // Light teal color
+            fillAlpha = 100 // Adjust alpha for the fill color
+        }
 
         val lineData = LineData(dataSetBpm, dataSetBloodOxygen)
         lineChart.data = lineData
 
-        // Set any additional styling or configurations for your line chart as needed
-        // ...
+        // Customize chart appearance
+        lineChart.axisLeft.isEnabled = false // Disable left y-axis
+        lineChart.axisRight.isEnabled = false // Disable right y-axis
+        lineChart.xAxis.setDrawGridLines(false) // Disable x-axis grid lines
+        lineChart.axisLeft.setDrawGridLines(false) // Disable y-axis grid lines
+        lineChart.axisRight.setDrawGridLines(false) // Disable right y-axis grid lines
+        lineChart.xAxis.setDrawLabels(false) // Disable x-axis labels
+        lineChart.description.isEnabled = false // Disable chart description
+        lineChart.legend.isEnabled = true // Enable legend if needed
 
         lineChart.notifyDataSetChanged() // Notify the chart that the data has changed
         lineChart.invalidate() // Refresh the chart
