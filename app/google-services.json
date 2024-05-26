@@ -12,7 +12,12 @@
           "package_name": "com.example.afifit"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "971961395930-6ip3diih3fl1ljesod82jdse18u54i3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCo-Adyp0GX2-FBXP_zWa2lpOLyGaUOdx0"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971961395930-6ip3diih3fl1ljesod82jdse18u54i3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -8,11 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Switch
-import androidx.core.graphics.drawable.DrawableCompat.applyTheme
-import com.example.afifit.R
-import com.example.afifit.databinding.FragmentComputerVisionBinding
 import com.example.afifit.databinding.FragmentSettingsBinding
-import io.grpc.Context
+
 
 class Settings : Fragment() {
 

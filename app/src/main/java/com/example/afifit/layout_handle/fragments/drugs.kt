@@ -58,36 +58,7 @@ class drugs : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDrugsBinding.bind(view)
 
-        binding!!.pushData.setOnClickListener {
-            if (!isNetworkAvailable(requireContext())) {
-                Toast.makeText(context, "No network available. Please check your connection.", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
 
-            if(binding!!.radioBtn2.isChecked &&binding!!.radioBtn1.isChecked&&binding!!.radioBtn3.isChecked){
-
-
-            lifecycleScope.launch {
-
-                val currentTime = getCurrentTime()
-
-
-                val message = "Drug taken at $currentTime"
-                val prescription = Prescription(message)
-
-                withContext(Dispatchers.IO) {
-                    pushDataToFirebase(prescription)
-                }
-
-                Toast.makeText(requireContext(), "Notified practitioner", Toast.LENGTH_SHORT).show()
-            }
-
-
-            }else{
-                Toast.makeText(context, "Please take all the days pills then check them above", Toast.LENGTH_SHORT).show()
-            }
-
-        }
 
 
 

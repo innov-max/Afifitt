@@ -58,11 +58,11 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.google.firebase:firebase-storage:20.3.0")
+    implementation("com.google.firebase:firebase-storage:21.0.0")
     implementation("org.tensorflow:tensorflow-lite-support:0.1.0")
     implementation("org.tensorflow:tensorflow-lite-metadata:0.1.0")
-    implementation("com.google.firebase:firebase-auth:22.3.1")
-    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.google.firebase:firebase-auth:23.0.0")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.firebase:firebase-inappmessaging-display:21.0.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -79,16 +79,18 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
     //calender
     implementation ("com.applandeo:material-calendar-view:1.9.0")
+    implementation ("com.github.prolificinteractive:material-calendarview:2.0.0")
     //video & voice call
     implementation ("com.github.ZEGOCLOUD:zego_uikit_prebuilt_live_streaming_android:+")
     implementation ("com.github.ZEGOCLOUD:zego_uikit_signaling_plugin_android:+")
     implementation("com.github.ZEGOCLOUD:zego_uikit_prebuilt_call_android:+")
     //firebase
     implementation("com.google.firebase:firebase-messaging:23.4.1")
-    implementation("com.google.firebase:firebase-firestore:24.11.0")
     implementation("com.google.firebase:firebase-database:20.3.1")
     implementation ("com.google.firebase:firebase-analytics:21.6.1")
     implementation ("com.google.firebase:firebase-storage:20.3.0")
+    implementation ("com.google.firebase:firebase-auth:23.0.0")
+    implementation ("com.google.android.gms:play-services-auth:21.2.0")
 
 
     //graph

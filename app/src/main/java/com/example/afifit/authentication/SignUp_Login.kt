@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.afifit.R
+import com.example.afifit.dash
 import com.example.afifit.databinding.FragmentSettingsBinding
 import com.example.afifit.databinding.FragmentSignUpLoginBinding
 import com.example.afifit.splash2
@@ -145,8 +146,8 @@ class SignUp_Login : Fragment() {
                 } else if (auth.currentUser != null) {
                     Toast.makeText(requireContext(), "Login Successfull", Toast.LENGTH_SHORT)
                         .show()
-                    //val intent = Intent(this, landingActivity::class.java)
-                  //  startActivity(intent)
+                    val intent = Intent(requireContext(), dash::class.java)
+                    startActivity(intent)
                     Log.e("login Message", "login successful")
                 }
             }else{
@@ -216,7 +217,7 @@ class SignUp_Login : Fragment() {
     private fun createRequest() {
         // Configure Google Sign In
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
