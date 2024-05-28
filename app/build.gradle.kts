@@ -81,6 +81,8 @@ dependencies {
     implementation ("com.applandeo:material-calendar-view:1.9.0")
     implementation ("com.github.prolificinteractive:material-calendarview:2.0.0")
     implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
+    implementation ("com.github.a1573595:WeekCalendar:1.0.1")
+
 
     //video & voice call
     implementation ("com.github.ZEGOCLOUD:zego_uikit_prebuilt_live_streaming_android:+")

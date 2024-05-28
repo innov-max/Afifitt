@@ -81,6 +81,10 @@ class drugs : Fragment() {
         }
 
         setupItemTouchHelper()
+
+        binding!!.weekcalender.setOnSelectedListener {
+
+        }
     }
 
     private fun showAddDrugDialog() {

@@ -23,7 +23,11 @@
         android:paddingStart="10dp"
         android:textColor="@color/black" />
 
-    <androidx.cardview.widget.CardView
+
+
+
+
+        <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="20dp"
@@ -32,11 +36,19 @@
         app:cardCornerRadius="20dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp">
 
 
+            <com.a1573595.weekcalendar.WeekCalendar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/weekcalender"
+                app:wc_borderRes="@drawable/star"
+                app:wc_focusedTextColor="@android:color/holo_red_light"
+                app:wc_textColor="@android:color/holo_red_light" />
 
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
