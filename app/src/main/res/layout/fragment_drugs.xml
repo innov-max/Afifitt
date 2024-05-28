@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".layout_handle.fragments.drugs"
     android:orientation="vertical"
-    android:background="@color/white"
-   >
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <TextView
         android:text="My Medications"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold|normal"
         android:textSize="20sp"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
@@ -18,16 +23,41 @@
         android:paddingStart="10dp"
         android:textColor="@color/black" />
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendarView"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mcv_showOtherDates="all"
-        app:mcv_selectionColor="#03A9F4"
-        />
+        app:cardElevation="20dp"
+        android:backgroundTint="@color/white"
+        app:cardPreventCornerOverlap="true"
+        app:cardCornerRadius="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp">
+
+
+
+    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_drug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+       android:layout_marginBottom="60dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#03A9F4"
+        android:src="@drawable/ic_add"
+        android:contentDescription="@string/add_drug" />
 
 
 
 
 
-</LinearLayout>
+
+
+</RelativeLayout>

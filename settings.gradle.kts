@@ -17,6 +17,8 @@ dependencyResolutionManagement {
 
 
     }
+
+
 }
 
 rootProject.name = "Afifit"

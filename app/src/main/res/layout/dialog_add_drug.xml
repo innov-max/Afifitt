@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
+        android:textColorHint="@color/black"
+        android:hint="Drug Name"
+        app:boxStrokeColor="@color/darkgrey"
+        app:boxStrokeWidth="1dp"
+        app:shapeAppearanceOverlay="@style/button4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_drug_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="normal" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
+        android:textColorHint="@color/black"
+        android:hint="Time (e.g., 12:00 PM)"
+        app:boxStrokeColor="@color/darkgrey"
+        app:boxStrokeWidth="1dp"
+        app:shapeAppearanceOverlay="@style/button4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_text_drug_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="normal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+          android:id="@+id/button_select_photo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:backgroundTint="#03A9F4"
+          android:src="@drawable/ic_add"
+          android:contentDescription="@string/add_drug_image" />
+
+
+      <Button
+          android:id="@+id/button_add_drug"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Add Drug" />
+
+  </LinearLayout>
+
+    <!-- Add an ImageView to show the selected photo (optional) -->
+    <ImageView
+        android:id="@+id/image_view_drug_photo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:visibility="gone" />
+
+
+</LinearLayout>
