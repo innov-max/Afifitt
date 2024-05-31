@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/drug_image"
             android:layout_marginStart="16dp"
-            android:text="Drug Name"
+            android:text="@string/drug_name"
             android:textSize="18sp" />
 
         <TextView
@@ -43,11 +43,12 @@
 
         <CheckBox
             android:id="@+id/checkbox"
+            android:backgroundTint="#03A9F4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
 
 

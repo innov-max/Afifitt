@@ -111,6 +111,8 @@ dependencies {
     implementation ("org.tensorflow:tensorflow-lite-support:0.1.0")
     implementation ("org.tensorflow:tensorflow-lite-metadata:0.1.0")
     implementation ("com.quickbirdstudios:opencv-contrib:3.4.15")
+    implementation ("org.tensorflow:tensorflow-lite-gpu:2.9.0")
+
     // Barcode model
     implementation ("com.google.mlkit:barcode-scanning:17.2.0")
     implementation ("com.google.mlkit:object-detection:17.0.1")
@@ -121,9 +123,13 @@ dependencies {
     implementation ("com.google.mlkit:image-labeling:17.0.8")
     implementation ("com.google.mlkit:image-labeling-custom:17.0.2")
     //camera
-    implementation ("androidx.camera:camera-camera2:1.0.0-beta04")
-    implementation ("androidx.camera:camera-lifecycle:1.0.0-beta04")
-    implementation ("androidx.camera:camera-view:1.0.0-alpha11")
+    implementation ("androidx.camera:camera-camera2:1.3.3")
+    implementation ("androidx.camera:camera-lifecycle:1.3.3")
+    implementation ("androidx.camera:camera-view:1.3.3")
+    implementation ("androidx.camera:camera-core:1.3.3")
+    implementation ("androidx.camera:camera-camera2:1.3.3")
+    implementation ("androidx.camera:camera-lifecycle:1.3.3")
+    implementation ("androidx.camera:camera-view:1.3.3")
     //progress bar
     implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
     implementation ("com.github.hadibtf:SemiCircleArcProgressBar:1.1.1")

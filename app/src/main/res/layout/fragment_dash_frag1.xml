@@ -163,18 +163,7 @@
                     app:lottie_rawRes="@raw/runn"
                     app:lottie_autoPlay="true"
                     app:lottie_loop="true" />
-
-
-
-
-
-
-
-
             </LinearLayout>
-
-
-
 
         </LinearLayout>
 

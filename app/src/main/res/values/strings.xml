@@ -17,6 +17,7 @@
     <string name="web_client_id">971961395930-6ip3diih3fl1ljesod82jdse18u54i3d.apps.googleusercontent.com</string>
     <string name="add_drug">add drug</string>
     <string name="add_drug_image">add drug image</string>
+    <string name="drug_name">Drug Name</string>
 
 
 </resources>
