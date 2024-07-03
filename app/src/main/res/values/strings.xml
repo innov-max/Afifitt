@@ -18,6 +18,7 @@
     <string name="add_drug">add drug</string>
     <string name="add_drug_image">add drug image</string>
     <string name="drug_name">Drug Name</string>
+    <string name="enter_message_fragment_chat">Enter Message</string>
 
 
 </resources>

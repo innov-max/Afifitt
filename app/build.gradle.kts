@@ -44,6 +44,11 @@ android {
         buildConfig = true
         mlModelBinding = true
     }
+    packagingOptions {
+        resources.excludes.add("META-INF/LICENSE.md")
+        resources.excludes.add("META-INF/NOTICE.md")
+        resources.excludes.add("META-INF/LICENSE-notice.md")
+    }
 
 
 }
@@ -133,6 +138,10 @@ dependencies {
     //progress bar
     implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
     implementation ("com.github.hadibtf:SemiCircleArcProgressBar:1.1.1")
+    //gmail notifcation
+    implementation ("com.sun.mail:android-mail:1.6.7")
+    implementation ("com.sun.mail:android-activation:1.6.7")
+    implementation ("com.github.aabhasr1:OtpView:v1.1.2-ktx")
 
 
 

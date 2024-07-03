@@ -66,7 +66,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/btnSend"
                 android:background="@android:color/transparent"
-                android:hint="Enter Message"
+                android:hint="@string/enter_message_fragment_chat"
                 android:inputType="text"
                 android:maxLines="6"
                 tools:ignore="Autofill" />

@@ -14,4 +14,5 @@
     <string name="settings">Settings</string>
     <string name="select_time_period">Time Period</string>
     <string name="drug_name">Drug Name</string>
+    <string name="enter_message_fragment_chat">Enter Message</string>
 </resources>

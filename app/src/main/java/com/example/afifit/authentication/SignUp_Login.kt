@@ -1,6 +1,7 @@
 package com.example.afifit.authentication
 
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -46,6 +47,7 @@ class SignUp_Login : Fragment() {
     ): View? {
         binding = FragmentSignUpLoginBinding.inflate(inflater, container, false)
         return binding?.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,8 +55,7 @@ class SignUp_Login : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
-        database =
-            FirebaseDatabase.getInstance()
+        database = FirebaseDatabase.getInstance()
 
         binding?.signUp?.setOnClickListener {
             binding!!.signUp.background = resources.getDrawable(R.drawable.switch_tricks, null)
@@ -101,8 +102,10 @@ class SignUp_Login : Fragment() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                                 Log.e("Task Message", "Successful")
-                               // val intent = Intent(this, send_otp::class.java)
-                              //  startActivity(intent)
+                                val intent = Intent(requireContext(), dash::class.java)
+                                startActivity(intent)
+                                val email = binding!!.emailSignUp.text?.trim().toString()
+                                sendEmailAsync(email)
                             } else {
                                 Log.e("Task Message", "Unsuccessful")
                                 Toast.makeText(
@@ -149,6 +152,8 @@ class SignUp_Login : Fragment() {
                     val intent = Intent(requireContext(), dash::class.java)
                     startActivity(intent)
                     Log.e("login Message", "login successful")
+                    val email = binding!!.emailSignUp.text?.trim().toString()
+                    sendEmailAsync(email)
                 }
             }else{
                 Toast.makeText(requireContext(),"Fill all the fields",Toast.LENGTH_SHORT).show()
@@ -225,5 +230,20 @@ class SignUp_Login : Fragment() {
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+    private fun sendEmailAsync(email: String) {
+        val subject = "Welcome to Afifit"
+        val body = "Thank you for signing up! We're excited to have you on board."
+        SendEmailTask().execute(email, subject, body)
+    }
+    private class SendEmailTask : AsyncTask<String, Void, Void>() {
+        @Deprecated("Deprecated in Java")
+        override fun doInBackground(vararg params: String): Void? {
+            val recipientEmail = params[0]
+            val subject = params[1]
+            val body = params[2]
+            MailUtils.sendEmail(recipientEmail, subject, body)
+            return null
+        }
     }
 }
