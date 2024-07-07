@@ -10,9 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.afifit.R
-import com.example.afifit.dash
-import com.example.afifit.databinding.FragmentSettingsBinding
 import com.example.afifit.databinding.FragmentSignUpLoginBinding
+import com.example.afifit.layout_handle.fragments.ComputerVision
 import com.example.afifit.splash2
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -23,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 
-
 class SignUp_Login : Fragment() {
 
     private var binding: FragmentSignUpLoginBinding? = null
@@ -33,12 +31,9 @@ class SignUp_Login : Fragment() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     val RC_SIGN_IN: Int = 1
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -47,14 +42,12 @@ class SignUp_Login : Fragment() {
     ): View? {
         binding = FragmentSignUpLoginBinding.inflate(inflater, container, false)
         return binding?.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
         database = FirebaseDatabase.getInstance()
 
         binding?.signUp?.setOnClickListener {
@@ -66,65 +59,36 @@ class SignUp_Login : Fragment() {
             binding!!.login.setTextColor(resources.getColor(R.color.cyan, null))
         }
 
-        //SIGN UP BUTTON FUNCTIONALITY
         binding?.btnsignUp?.setOnClickListener {
-
             binding!!.SignUpProgressBar.visibility = View.GONE
+            val userName = binding!!.UserName.text?.trim().toString()
+            val email = binding!!.emailSignUp.text?.trim().toString()
+            val password = binding!!.PasswordSignUp.text?.trim().toString()
+            val confirmPassword = binding!!.Passwordconfirm.text?.trim().toString()
 
-            if (binding!!.UserName.text?.trim().toString()
-                    .isNotEmpty() || binding!!.emailSignUp.text?.trim().toString()
-                    .isNotEmpty() || binding!!.emailSignUp.text?.trim().toString()
-                    .isNotEmpty() || binding!!.PasswordSignUp.text?.trim().toString()
-                    .isNotEmpty() || binding!!.Passwordconfirm.text?.trim()
-                    .toString().isNotEmpty()
-            ) {
-
-                if (binding!!.PasswordSignUp.text?.trim()
-                        .toString() != binding!!.Passwordconfirm.text?.trim()
-                        .toString()
-                ) {
-                    Toast.makeText(
-                        requireContext(),
-                        "The passwords are not matching try again",
-                        Toast.LENGTH_SHORT
-                    ).show()
+            if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
+                if (password != confirmPassword) {
+                    Toast.makeText(requireContext(), "The passwords are not matching, try again", Toast.LENGTH_SHORT).show()
                 } else {
-
-                    auth.createUserWithEmailAndPassword(
-                        binding!!.emailSignUp.text?.trim().toString(),
-                        binding!!.emailSignUp.text?.trim().toString()
-                    )
+                    auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(requireActivity()) { task ->
                             if (task.isSuccessful) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Registration Successfull WELCOME",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                Toast.makeText(requireContext(), "Registration Successful, WELCOME", Toast.LENGTH_SHORT).show()
                                 Log.e("Task Message", "Successful")
-                                val intent = Intent(requireContext(), dash::class.java)
-                                startActivity(intent)
-                                val email = binding!!.emailSignUp.text?.trim().toString()
+                                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                                transaction.addToBackStack(null)
+                                transaction.replace(R.id.FragmentContainer, phone_otp())
+                                transaction.commit()
                                 sendEmailAsync(email)
                             } else {
                                 Log.e("Task Message", "Unsuccessful")
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Something went wrong try again, make sure your connected to the internet",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
+                                Toast.makeText(requireContext(), "Something went wrong, try again. Ensure you're connected to the internet.", Toast.LENGTH_SHORT).show()
                             }
-
-
                         }
                 }
             } else {
                 Toast.makeText(requireContext(), "Input Required", Toast.LENGTH_LONG).show()
-
             }
-
-
         }
 
         binding?.login?.setOnClickListener {
@@ -134,108 +98,98 @@ class SignUp_Login : Fragment() {
             binding!!.SignUpLayout.visibility = View.GONE
             binding!!.loginLayout.visibility = View.VISIBLE
             binding!!.login.setTextColor(resources.getColor(R.color.textColor, null))
-
-
         }
 
         binding?.btnLogin?.setOnClickListener {
-            if (binding!!.idemail.text?.trim().toString().isNotEmpty()||binding!!.idPassword.text?.trim().toString().isNotEmpty()) {
+            val email = binding!!.idemail.text?.trim().toString()
+            val password = binding!!.idPassword.text?.trim().toString()
+
+            if (email.isNotEmpty() && password.isNotEmpty()) {
                 if (auth.currentUser == null) {
-                    Toast.makeText(
-                        requireContext(),
-                        "You are not registered, kindly register",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else if (auth.currentUser != null) {
-                    Toast.makeText(requireContext(), "Login Successfull", Toast.LENGTH_SHORT)
-                        .show()
-                    val intent = Intent(requireContext(), dash::class.java)
-                    startActivity(intent)
-                    Log.e("login Message", "login successful")
-                    val email = binding!!.emailSignUp.text?.trim().toString()
-                    sendEmailAsync(email)
+                    Toast.makeText(requireContext(), "You are not registered, kindly register", Toast.LENGTH_SHORT).show()
+                } else {
+                    auth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(requireActivity()) { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show()
+                                Log.e("login Message", "Login successful")
+                                // Navigate to dash or another fragment as needed
+                                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                                transaction.addToBackStack(null)
+                                transaction.replace(R.id.FragmentContainer, phone_otp())
+                                transaction.commit()
+                            } else {
+                                Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                 }
-            }else{
-                Toast.makeText(requireContext(),"Fill all the fields",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Fill all the fields", Toast.LENGTH_SHORT).show()
             }
         }
+
         createRequest()
         binding?.btnGoogle?.setOnClickListener {
-
-            signIn();
+            signIn()
         }
     }
 
     override fun onStart() {
         super.onStart()
-
-        // Check if user is signed in (non-null) and update UI accordingly.
-
         val user = auth.currentUser
         if (user != null) {
-            Log.e("Task Message", "Please Sign Up to continue")
+            Log.e("Task Message", "User already signed in.")
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            val exception=task.exception
-
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account)
+            } catch (e: ApiException) {
+                Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT).show()
             }
-            catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
-                Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
         }
     }
 
-
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
-
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    val fragment2 = splash2()
+                    val fragment2 = phone_otp()
                     val transaction = requireActivity().supportFragmentManager.beginTransaction()
-
                     transaction.addToBackStack(null)
                     transaction.replace(R.id.FragmentContainer, fragment2)
                     transaction.commit()
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(requireContext(), "Login Failed: ", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Login Failed", Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
     private fun createRequest() {
-        // Configure Google Sign In
         gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.web_client_id))
             .requestEmail()
             .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(requireContext(), gso)
     }
+
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
     private fun sendEmailAsync(email: String) {
         val subject = "Welcome to Afifit"
         val body = "Thank you for signing up! We're excited to have you on board."
         SendEmailTask().execute(email, subject, body)
     }
+
     private class SendEmailTask : AsyncTask<String, Void, Void>() {
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: String): Void? {

@@ -142,6 +142,9 @@ dependencies {
     implementation ("com.sun.mail:android-mail:1.6.7")
     implementation ("com.sun.mail:android-activation:1.6.7")
     implementation ("com.github.aabhasr1:OtpView:v1.1.2-ktx")
+    implementation ("com.google.firebase:firebase-appcheck-playintegrity:18.0.0")
+    implementation ("com.google.firebase:firebase-appcheck-safetynet:16.1.2")
+
 
 
 

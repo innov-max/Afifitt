@@ -48,6 +48,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Afifit"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.firebase.appcheck.safetynet.SafetyNetProvider"
+            android:value="true" />
         <activity
             android:name=".Settings.Settings"
             android:exported="false" />
