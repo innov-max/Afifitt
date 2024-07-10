@@ -18,7 +18,7 @@ dependencyResolutionManagement {
 
     }
 
-
+// check out the issue with the sendbird Api asap... inhibiting the build
 }
 
 rootProject.name = "Afifit"

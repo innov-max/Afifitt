@@ -1,7 +1,7 @@
 // This file is part of OpenCV project.
 // It is subject to the license terms in the LICENSE file found in the top-level directory
 // of this distribution and at http://opencv.org/license.html.
-
+//jdk changes for the build of opencv is at 17 and min sdk is 34
 //
 // Notes about integration OpenCV into existed Android Studio application project are below (application 'app' module should exist).
 //
