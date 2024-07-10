@@ -48,7 +48,7 @@ echo.
 echo Please set the JAVA_HOME variable in your environment to match the
 echo location of your Java installation.
 
-goto fail
+goto 
 
 :findJavaFromJavaHome
 set JAVA_HOME=%JAVA_HOME:"=%
@@ -87,3 +87,4 @@ exit /b 1
 if "%OS%"=="Windows_NT" endlocal
 
 :omega
+fail // Edit mods @innov_max set the gradle version to 17
