@@ -388,7 +388,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
                         if (latestUserId != null) {
                             val latestUserData = dataSnapshot.child(latestUserId)
                             val bpm =
-                                latestUserData.child("bpm").getValue(Float::class.java)
+                                latestUserData.child("hwBPM").getValue(Float::class.java)
                             val avgBpm =
                                 latestUserData.child("avgBpm").getValue(Int::class.java)
                             val bloodOxygen =

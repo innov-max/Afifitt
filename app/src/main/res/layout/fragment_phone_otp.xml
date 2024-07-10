@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/cyan"
+        android:backgroundTint="#03A9F4"
         android:text="Send otp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -66,10 +66,10 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextNumber2"
         app:layout_constraintStart_toStartOf="@+id/editTextNumber2" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="380dp"
+        android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
