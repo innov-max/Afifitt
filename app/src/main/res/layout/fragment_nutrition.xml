@@ -97,7 +97,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="150dp"
         app:cardElevation="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -105,10 +105,14 @@
         android:backgroundTint="@color/white"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="20dp">
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
 

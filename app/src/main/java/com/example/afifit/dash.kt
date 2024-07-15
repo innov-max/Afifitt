@@ -17,7 +17,7 @@ class dash : AppCompatActivity() {
     private lateinit var binding: ActivityDashBinding
     val drugs = drugs()
     val nutrition = nutrition()
-    val computervision = ComputerVision()
+    val exercise = exercise()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class dash : AppCompatActivity() {
                 }
                 R.id.navigation_exercise -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.mainfragContaier, computervision)
+                        .replace(R.id.mainfragContaier, exercise)
                         .addToBackStack("mainfragContaier")
                         .commit()
                     true

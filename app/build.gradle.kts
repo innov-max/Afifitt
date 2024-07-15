@@ -145,7 +145,9 @@ dependencies {
     implementation ("com.github.aabhasr1:OtpView:v1.1.2-ktx")
     implementation ("com.google.firebase:firebase-appcheck-playintegrity:18.0.0")
     implementation ("com.google.firebase:firebase-appcheck-safetynet:16.1.2")
-
+    implementation ("com.diogobernardino:williamchart:3.11.0")
+    implementation ("com.diogobernardino.williamchart:tooltip-slider:3.11.0")
+    implementation ("com.diogobernardino.williamchart:tooltip-points:3.11.0")
 
 
 

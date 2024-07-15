@@ -1,32 +1,31 @@
 package com.example.afifit.layout_handle.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.db.williamchart.view.DonutChartView
+import com.db.williamchart.view.HorizontalBarChartView
 import com.example.afifit.R
+import com.example.afifit.data.CardsPopularAdapter
+import com.example.afifit.data.RandomView
+import com.example.afifit.databinding.FragmentExerciseBinding
+import com.example.afifit.databinding.FragmentGraphBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [exercise.newInstance] factory method to
- * create an instance of this fragment.
- */
 class exercise : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    private lateinit var donutChartView: DonutChartView
+    private var _binding: FragmentExerciseBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -34,27 +33,38 @@ class exercise : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exercise, container, false)
-    }
+        _binding = FragmentExerciseBinding.inflate(inflater, container, false)
+        return binding.root
+    }override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment exercise.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            exercise().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
+        val textView4 : TextView = view.findViewById(R.id.textView4)
+        val textView5 : TextView = view.findViewById(R.id.textView5)
+        val textView6 : TextView = view.findViewById(R.id.caloriesTextView)
+        textView4.text = RandomView.donutdatahome.toString()
+        textView5.text = RandomView.barchartdatahome.toString()
+        textView6.text = RandomView.caloriesdatahome.toString()
+
+        val button = view.findViewById<Button>(R.id.button5)
+
+
+        val donutChartDatalist = listOf(
+            RandomView.normalizeddonutdatahome,
+            100f - RandomView.normalizeddonutdatahome
+        )
+
+        val donutchart = view.findViewById<DonutChartView>(R.id.chartDonut)
+        donutchart.donutColors = intArrayOf(
+            Color.parseColor("#9FEC00"),
+            Color.parseColor("#D9D9D9")
+        )
+        donutchart.animation.duration = 1000L
+        donutchart.animate(donutChartDatalist)
+
+        val adapter = CardsPopularAdapter(requireContext(), RandomView.cardPopularList)
+        view.findViewById<RecyclerView>(R.id.recyclerView).adapter = adapter
+}
+
+
 }

@@ -16,6 +16,7 @@
         android:backgroundTint="@color/white"
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="20dp">
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
