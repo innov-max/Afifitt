@@ -216,9 +216,15 @@ class nutrition : Fragment() {
     private fun setupCarouselWithTimer() {
         val viewPager: ViewPager2 = binding.viewPager
         val items = listOf(
-            CarouselItem(R.drawable.anne, "Title 1", "Description 1"),
-            CarouselItem(R.drawable.supp, "Title 2", "Description 2"),
-            CarouselItem(R.drawable.white_pill, "Title 3", "Description 3")
+            CarouselItem(R.drawable.chapo, "Lunch: Chapo Veges and Beans", "Chapo Veges and Beans typically offers moderate levels of fat " +
+                    "and carbs, with higher protein content from beans." +
+                    " It's rich in vitamins like A and C from vegetables, contributing to its nutritional profile."),
+            CarouselItem(R.drawable.breko, "Breakfast: Omelette, Sandwich and tea", "Omelette, Sandwich, and Tea provide a balanced meal with moderate protein from eggs in the omelette," +
+                    " carbohydrates from bread in the sandwich, and comforting hydration from tea, enriched with " +
+                    "antioxidants and a small amount of milk or sugar."),
+            CarouselItem(R.drawable.sapa, "Dinner: Ugali Fish and Cabbage", "Ugali, Fish, and Cabbage offer a nutritious meal: Ugali provides complex carbohydrates, " +
+                    "fish offers lean protein and omega-3 fatty acids for heart health, " +
+                    "while cabbage contributes fiber, vitamins (like C and K), and minerals, supporting digestion and overall immunity.")
         )
 
         val adapter = CarouselAdapter(items)
