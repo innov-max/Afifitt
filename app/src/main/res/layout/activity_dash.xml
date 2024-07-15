@@ -37,6 +37,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/myFragment2"
             tools:layout="@layout/fragment_contact" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/myFragment4"
+            android:name="com.example.afifit.layout_handle.fragments.DailyRecommendation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/myFragment3"
+            tools:layout="@layout/fragment_daily_recommendation" />
     </RelativeLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

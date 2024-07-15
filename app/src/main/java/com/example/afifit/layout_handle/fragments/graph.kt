@@ -1,8 +1,8 @@
 package com.example.afifit.layout_handle.fragments
 
-import BloodOxygenData
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,21 +14,28 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
+import java.util.*
 
 class graph : Fragment() {
 
     private var _binding: FragmentGraphBinding? = null
     private val binding get() = _binding!!
 
-    private val bpmDataList = mutableListOf<BpmData>()
-    private val bloodOxygenDataList = mutableListOf<BloodOxygenData>()
-
     private lateinit var lineChart: LineChart
+
+    private val maxVisibleEntryCount = 30 // Maximum number of visible data points
+
+    private val bpmDataList = mutableListOf<BpmData>()
+    private val bloodOxygenDataList = mutableListOf<Entry>()
+    private val avgBpmDataList = mutableListOf<Entry>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +50,10 @@ class graph : Fragment() {
 
         lineChart = binding.lineChart
 
+        // Set up chart properties
+        setupChart()
+
+        // Initialize Firebase database reference
         val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("/bpm")
 
         // Attach a listener to read the data
@@ -50,19 +61,41 @@ class graph : Fragment() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 bpmDataList.clear()
                 bloodOxygenDataList.clear()
+                avgBpmDataList.clear()
 
+                // Iterate through each child snapshot and retrieve data
                 for (dataSnapshotChild in dataSnapshot.children) {
                     val bpm = dataSnapshotChild.child("bpm").getValue(Float::class.java)
                     val bloodOxygen = dataSnapshotChild.child("bloodOxygen").getValue(Float::class.java)
-                    val avgBpm = dataSnapshotChild.child("avgBpm").getValue(Long::class.java) // Retrieve as Long
-                    val timestamp = dataSnapshotChild.child("timestamp").getValue(Long::class.java)
+                    val avgBpm = dataSnapshotChild.child("avgBpm").getValue(Long::class.java)?.toFloat()
+                    val timestamp = dataSnapshotChild.child("timestamp").getValue(Long::class.java) ?: 0L
 
-                    val bpmData = BpmData(bpm ?: 0.0f, timestamp ?: 0L, avgBpm?.toFloat() ?: 0.0f)
-                    val bloodOxygenData = BloodOxygenData(bloodOxygen ?: 0f, timestamp ?: 0L)
-
-                    bpmDataList.add(bpmData)
-                    bloodOxygenDataList.add(bloodOxygenData)
+                    if (bpm != null) {
+                        bpmDataList.add(BpmData(bpm, timestamp, avgBpm ?: 0.0f))
+                    }
+                    if (bloodOxygen != null) {
+                        bloodOxygenDataList.add(Entry(timestamp.toFloat(), bloodOxygen))
+                    }
+                    if (avgBpm != null) {
+                        avgBpmDataList.add(Entry(timestamp.toFloat(), avgBpm))
+                    }
                 }
+
+                // Ensure only the last maxVisibleEntryCount entries are kept
+                if (bpmDataList.size > maxVisibleEntryCount) {
+                    bpmDataList.subList(0, bpmDataList.size - maxVisibleEntryCount).clear()
+                }
+                if (bloodOxygenDataList.size > maxVisibleEntryCount) {
+                    bloodOxygenDataList.subList(0, bloodOxygenDataList.size - maxVisibleEntryCount).clear()
+                }
+                if (avgBpmDataList.size > maxVisibleEntryCount) {
+                    avgBpmDataList.subList(0, avgBpmDataList.size - maxVisibleEntryCount).clear()
+                }
+
+                // Log data for debugging
+                Log.d("GraphFragment", "BPM Data List: $bpmDataList")
+                Log.d("GraphFragment", "Blood Oxygen Data List: $bloodOxygenDataList")
+                Log.d("GraphFragment", "Avg BPM Data List: $avgBpmDataList")
 
                 // Update line chart with retrieved health data
                 updateLineChart()
@@ -70,67 +103,70 @@ class graph : Fragment() {
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle errors
+                Log.e("GraphFragment", "Database error: ${databaseError.message}")
             }
         })
     }
 
+    private fun setupChart() {
+        lineChart.apply {
+            setDrawGridBackground(false)
+            description.isEnabled = false
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.setDrawGridLines(false)
+            axisLeft.setDrawGridLines(false)
+            axisRight.isEnabled = false
+            legend.isEnabled = true
+
+            // Format x-axis labels as AM/PM time
+            val xAxisFormatter = object : ValueFormatter() {
+                private val format = SimpleDateFormat("hh:mm a", Locale.getDefault())
+
+                override fun getFormattedValue(value: Float): String {
+                    // Convert timestamp to formatted time
+                    return format.format(Date(value.toLong()))
+                }
+            }
+            xAxis.valueFormatter = xAxisFormatter
+        }
+    }
+
     private fun updateLineChart() {
-        val entriesBpm = mutableListOf<Entry>()
-        val entriesBloodOxygen = mutableListOf<Entry>()
+        // Prepare entries for BPM
+        val entriesBpm = bpmDataList.map { Entry(it.timestamp.toFloat(), it.bpm) }
 
-        for (data in bpmDataList) {
-            entriesBpm.add(Entry(data.timestamp.toFloat(), data.bpm))
-        }
+        // Create LineDataSets for BPM, Blood Oxygen, and AvgBPM
+        val dataSetBpm = createLineDataSet(entriesBpm, "BPM", Color.BLUE)
+        val dataSetBloodOxygen = createLineDataSet(bloodOxygenDataList, "Blood Oxygen", Color.RED)
+        val dataSetAvgBpm = createLineDataSet(avgBpmDataList, "Avg BPM", Color.GREEN)
 
-        for (data in bloodOxygenDataList) {
-            entriesBloodOxygen.add(Entry(data.timestamp.toFloat(), data.bloodOxygen))
-        }
+        // Create LineData with all datasets
+        val lineData = LineData(dataSetBpm, dataSetBloodOxygen, dataSetAvgBpm)
 
-        // Sort entries by timestamp to show change over time
-        entriesBpm.sortBy { it.x }
-        entriesBloodOxygen.sortBy { it.x }
-
-        val dataSetBpm = LineDataSet(entriesBpm, "BPM").apply {
-            color = Color.BLUE
-            valueTextColor = Color.BLACK
-            setCircleColor(Color.BLUE) // Set circle color
-            circleRadius = 5f // Set circle radius
-            setDrawCircles(true) // Enable circles
-            setDrawValues(false) // Disable value labels on nodes
-            lineWidth = 2f // Set line width
-            setDrawFilled(true) // Enable filled line
-            fillColor = Color.parseColor("#B2DFDB") // Light teal color
-            fillAlpha = 100 // Adjust alpha for the fill color
-        }
-
-        val dataSetBloodOxygen = LineDataSet(entriesBloodOxygen, "Blood Oxygen").apply {
-            color = Color.RED
-            valueTextColor = Color.BLACK
-            setCircleColor(Color.RED) // Set circle color
-            circleRadius = 5f // Set circle radius
-            setDrawCircles(true) // Enable circles
-            setDrawValues(false) // Disable value labels on nodes
-            lineWidth = 2f // Set line width
-            setDrawFilled(true) // Enable filled line
-            fillColor = Color.parseColor("#B2DFDB") // Light teal color
-            fillAlpha = 100 // Adjust alpha for the fill color
-        }
-
-        val lineData = LineData(dataSetBpm, dataSetBloodOxygen)
+        // Set data to chart
         lineChart.data = lineData
 
-        // Customize chart appearance
-        lineChart.axisLeft.isEnabled = false // Disable left y-axis
-        lineChart.axisRight.isEnabled = false // Disable right y-axis
-        lineChart.xAxis.setDrawGridLines(false) // Disable x-axis grid lines
-        lineChart.axisLeft.setDrawGridLines(false) // Disable y-axis grid lines
-        lineChart.axisRight.setDrawGridLines(false) // Disable right y-axis grid lines
-        lineChart.xAxis.setDrawLabels(false) // Disable x-axis labels
-        lineChart.description.isEnabled = false // Disable chart description
-        lineChart.legend.isEnabled = true // Enable legend if needed
+        // Scroll to the latest data point
+        lineChart.moveViewToX(lineData.entryCount.toFloat() - 1)
 
-        lineChart.notifyDataSetChanged() // Notify the chart that the data has changed
-        lineChart.invalidate() // Refresh the chart
+        // Notify chart of data changes
+        lineChart.notifyDataSetChanged()
+        lineChart.invalidate()
+    }
+
+    private fun createLineDataSet(entries: List<Entry>, label: String, color: Int): LineDataSet {
+        val dataSet = LineDataSet(entries, label)
+        dataSet.color = color
+        dataSet.setCircleColor(color)
+        dataSet.circleRadius = 3f
+        dataSet.setDrawCircles(true)
+        dataSet.setDrawValues(false)
+        dataSet.lineWidth = 2f
+        dataSet.setDrawFilled(false)
+        dataSet.mode = LineDataSet.Mode.CUBIC_BEZIER // Smooth, continuous curve
+        dataSet.setDrawHorizontalHighlightIndicator(false) // Disable horizontal highlight line
+        dataSet.setDrawVerticalHighlightIndicator(false) // Disable vertical highlight line
+        return dataSet
     }
 
     override fun onDestroyView() {

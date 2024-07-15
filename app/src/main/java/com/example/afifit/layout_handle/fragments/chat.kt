@@ -94,16 +94,16 @@ class chat : Fragment() {
     }
 
     private fun sendMessage() {
-            val params = UserMessageParams()
-                .setMessage(binding?.editGchatMessage?.text.toString())
-            groupChannel.sendUserMessage(params, SendUserMessageHandler { userMessage, e ->
-                if (e != null) {
-                    // Handle the error.
-                    return@SendUserMessageHandler
-                }
-                adapter.addFirst(userMessage)
-                binding?.editGchatMessage?.text?.clear()
-            })
+        val params = UserMessageParams()
+            .setMessage(binding?.editGchatMessage?.text.toString())
+        groupChannel.sendUserMessage(params, SendUserMessageHandler { userMessage, e ->
+            if (e != null) {
+                // Handle the error.
+                return@SendUserMessageHandler
+            }
+            adapter.addFirst(userMessage)
+            binding?.editGchatMessage?.text?.clear()
+        })
     }
 
     private fun getMessages() {

@@ -66,7 +66,10 @@ class dash_frag1 : Fragment(),SensorEventListener {
     private var running = false
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
-
+    private lateinit var connectivityIndicator: TextView
+    private var isConnected: Boolean = false
+    private var lastUpdateTimeMillis: Long = 0
+    private val updateIntervalMillis = 60000 // 1 minute
     private lateinit var sharedPreferences: SharedPreferences
 
     private val connectivityReceiver = object : BroadcastReceiver() {
@@ -113,11 +116,13 @@ class dash_frag1 : Fragment(),SensorEventListener {
         bloodOxygenTextView = binding?.OxyValue
         glucose = binding?.bpm
         userId = "yourUserId"
-
-
+        connectivityIndicator = binding!!.deviceStatus
         displayGreeting()
         databaseReferenceUser = FirebaseDatabase.getInstance().reference.child("userProfiles")
         databaseReferenceHealth = FirebaseDatabase.getInstance().reference.child("healthData")
+        //connectivity
+        val databaseReference: DatabaseReference =
+            FirebaseDatabase.getInstance().getReference("bpm")
 
         binding?.profileImage?.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -191,7 +196,7 @@ class dash_frag1 : Fragment(),SensorEventListener {
         resetSteps()
 
         sensorManager = requireContext().getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
+        setupConnectivityListener()
     }
 
     override fun onDestroyView() {
@@ -261,6 +266,22 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
             true
         }
     }
+    private fun startUpdateTimer() {
+        val handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                val currentTimeMillis = System.currentTimeMillis()
+                if (currentTimeMillis - lastUpdateTimeMillis > updateIntervalMillis) {
+                    // No recent update within the interval
+                    updateConnectivityIndicator(false)
+                } else {
+                    // Recent update within the interval
+                    updateConnectivityIndicator(true)
+                }
+                handler.postDelayed(this, updateIntervalMillis.toLong())
+            }
+        })
+    }
     private fun saveData(){
 
         val sharedPreferences = requireContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
@@ -277,6 +298,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
         previousTotalSteps = savedNumber
 
     }
+
 
     private fun checkWifiStatus(): Boolean {
         val connectivityManager =
@@ -324,6 +346,42 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
         handler.postDelayed({
             notificationManager.cancel(edit_profile.NOTIFICATION_ID)
         }, 10000)
+    }
+    private fun setupConnectivityListener() {
+        val databaseReference: DatabaseReference =
+            FirebaseDatabase.getInstance().getReference("/bpm")
+
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Data under /bpm has changed, update last update time
+                    lastUpdateTimeMillis = System.currentTimeMillis()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle database error
+                Log.e(TAG, "Failed to read connectivity data.", error.toException())
+            }
+        })
+
+        // Start the timer to check for updates periodically
+        startUpdateTimer()
+    }
+
+
+    private fun updateConnectivityIndicator(isConnected: Boolean) {
+        if (isConnected) {
+            connectivityIndicator.text = "Connected"
+            connectivityIndicator.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.green)
+            )
+        } else {
+            connectivityIndicator.text = "Disconnected"
+            connectivityIndicator.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.red)
+            )
+        }
     }
 
     private fun updateUI(userProfile: UserProfile) {
@@ -388,7 +446,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
                         if (latestUserId != null) {
                             val latestUserData = dataSnapshot.child(latestUserId)
                             val bpm =
-                                latestUserData.child("hwBPM").getValue(Float::class.java)
+                                latestUserData.child("bpm").getValue(Float::class.java)
                             val avgBpm =
                                 latestUserData.child("avgBpm").getValue(Int::class.java)
                             val bloodOxygen =

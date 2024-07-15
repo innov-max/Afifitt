@@ -1,16 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".authentication.phone_otp">
 
-    <EditText
+
+    <com.airbnb.lottie.LottieAnimationView
+
+        android:paddingTop="90dp"
+        android:id="@+id/otp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        app:lottie_rawRes="@raw/otp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Login with \nMobile number"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editTextNumber2"
+        app:layout_constraintStart_toStartOf="@+id/editTextNumber2" />
+    <ProgressBar
+        android:id="@+id/phoneProgressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/btn_color"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextNumber2"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/edit_text_bg"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="number"
+            android:text="  +254"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/phoneEditTextNumber"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
         android:id="@+id/phoneEditTextNumber"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="32dp"
@@ -25,6 +80,7 @@
         app:layout_constraintBottom_toTopOf="@+id/sendOTPBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editTextNumber2" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/sendOTPBtn"
@@ -34,59 +90,12 @@
         android:backgroundTint="#03A9F4"
         android:text="Send otp"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textStyle="bold"/>
 
-    <EditText
-        android:id="@+id/editTextNumber2"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="32dp"
-        android:background="@drawable/edit_text_bg"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="number"
-        android:text="  +254"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/phoneEditTextNumber"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="Login with \nMobile number"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNumber2"
-        app:layout_constraintStart_toStartOf="@+id/editTextNumber2" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/anne"
-        />
 
-    <ProgressBar
-        android:id="@+id/phoneProgressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/btn_color"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

@@ -31,13 +31,14 @@
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:gravity="center">
-                <ImageView
-                    android:id="@+id/btnConsult"
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/run"
                     android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/warning" />
+                    android:layout_height="30dp"
+                    app:lottie_rawRes="@raw/consult"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
                 <TextView
                     android:text="Consultation"
                     android:textSize="20sp"
@@ -53,6 +54,7 @@
             android:backgroundTint="@color/white"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:id="@+id/btmCall"
             app:cardCornerRadius="15dp"
             app:cardElevation="10dp">
 
@@ -62,13 +64,14 @@
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:gravity="center">
-                <ImageView
-                    android:id="@+id/btmCall"
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/btmcall"
                     android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/phone" />
+                    android:layout_height="35dp"
+                    app:lottie_rawRes="@raw/danger"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,5 +82,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </GridLayout>
+
 
 </FrameLayout>

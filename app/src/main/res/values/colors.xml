@@ -15,5 +15,7 @@
     <color name="textColor">#000000</color>
     <color name="teal">#03A9F4</color>
     <color name="btn_color">#FF735C</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
 
 </resources>
