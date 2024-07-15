@@ -12,7 +12,6 @@ import com.example.afifit.R
 import com.example.afifit.data.CarouselAdapter
 import com.example.afifit.data.CarouselItem
 import com.example.afifit.databinding.FragmentDailyRecommendationBinding
-import com.example.afifit.databinding.FragmentNutritionBinding
 import java.util.Timer
 import java.util.TimerTask
 
@@ -44,9 +43,9 @@ class DailyRecommendation : Fragment() {
     private fun setupCarouselWithTimer() {
         val viewPager: ViewPager2 = binding.viewPager
         val items = listOf(
-            CarouselItem(R.drawable.anne, "Reminder", "Please Hydrate adequately"),
-            CarouselItem(R.drawable.supp, "Meal", "Please check your Meals to get your vitals up to task"),
-            CarouselItem(R.drawable.white_pill, "Medication", "Kindly Check your medication")
+            CarouselItem(R.drawable.hydrate, "Reminder", "Please Hydrate adequately"),
+            CarouselItem(R.drawable.meal1, "Meal", "Please check your Meals to get your vitals up to task"),
+            CarouselItem(R.drawable.med, "Medication", "Kindly Check your medication")
         )
 
         val adapter = CarouselAdapter(items)
